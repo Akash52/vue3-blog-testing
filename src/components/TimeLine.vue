@@ -9,6 +9,7 @@
           :class="{
             'border-b-2 font-medium': period === currentPeriod,
           }"
+          :data-test="period"
           @click="setPeriod(period)"
         >
           {{ period }}
