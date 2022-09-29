@@ -16,7 +16,7 @@
         </a>
       </span>
       <timeline-post-vue
-        class="px-4 my-1 border py-2 bg-pink-100 hover:bg-white cursor-pointer transition duration-500 flex"
+        class="px-4 my-1 border py-4 bg-pink-100 hover:bg-white cursor-pointer transition duration-500 flex"
         v-for="post in posts"
         :key="post.id"
         :post="post"
@@ -33,12 +33,19 @@ import TimelinePostVue from './TimelinePost.vue';
 
 type Period = 'Today' | 'This Week' | 'This Month';
 
+function delay() {
+  return new Promise((res) => {
+    setTimeout(res, 2000);
+  });
+}
+
 export default defineComponent({
   name: 'Timeline',
   components: {
     TimelinePostVue,
   },
-  setup() {
+  async setup() {
+    await delay();
     const periods = ['Today', 'This Week', 'This Month'];
     const currentPeriod = ref<Period>('Today');
     const posts = computed(() => {
