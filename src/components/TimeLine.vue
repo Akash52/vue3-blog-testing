@@ -15,16 +15,12 @@
           {{ period }}
         </a>
       </span>
-      <a
+      <timeline-post-vue
         class="px-4 my-1 border py-2 bg-pink-100 hover:bg-white cursor-pointer transition duration-500 flex"
         v-for="post in posts"
         :key="post.id"
-      >
-        {{ post.title }}
-        <div class="ml-2 text-slate-700 font-normal">
-          {{ post.created.format('Do MMM') }}
-        </div>
-      </a>
+        :post="post"
+      />
     </nav>
   </div>
 </template>
@@ -33,11 +29,15 @@
 import { defineComponent, ref, computed } from 'vue';
 import moment from 'moment';
 import { today, thisWeek, thisMonth } from '../mocks';
+import TimelinePostVue from './TimelinePost.vue';
 
 type Period = 'Today' | 'This Week' | 'This Month';
 
 export default defineComponent({
   name: 'Timeline',
+  components: {
+    TimelinePostVue,
+  },
   setup() {
     const periods = ['Today', 'This Week', 'This Month'];
     const currentPeriod = ref<Period>('Today');
