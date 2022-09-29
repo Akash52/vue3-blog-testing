@@ -1,6 +1,6 @@
 import { reactive, readonly } from 'vue';
 import axios from 'axios';
-import { Post } from './mocks';
+import { Post, thisWeek, thisMonth, today } from './mocks';
 
 interface State {
   posts: PostState;
@@ -40,12 +40,23 @@ class Store {
   }
 }
 
+const all = new Map<string, Post>();
+all.set(today.id, today);
+all.set(thisWeek.id, thisWeek);
+all.set(thisMonth.id, thisMonth);
+
 const store = new Store({
   posts: {
-    ids: [],
-    all: new Map(),
+    ids: [today.id, thisWeek.id, thisMonth.id],
+    all,
     loaded: false,
   },
 });
 
-store.getState().posts.loaded;
+//use
+//composable
+//provide/inject
+
+export function useStore() {
+  return store;
+}
