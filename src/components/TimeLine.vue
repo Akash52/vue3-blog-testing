@@ -21,7 +21,7 @@
       >
         {{ post.title }}
         <div class="ml-2 text-slate-700 font-normal">
-          {{ post.created.format('Do MM') }}
+          {{ post.created.format('Do MMM') }}
         </div>
       </a>
     </nav>
