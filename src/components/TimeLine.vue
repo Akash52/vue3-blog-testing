@@ -40,7 +40,7 @@ export default defineComponent({
     TimelinePostVue,
   },
   async setup() {
-    const periods = ["Today", "This Week", "This Month"];
+    const periods: Period[] = ["Today", "This Week", "This Month"];
     const currentPeriod = ref<Period>("Today");
     const store = useStore();
     if (!store.getState().posts.loaded) {
