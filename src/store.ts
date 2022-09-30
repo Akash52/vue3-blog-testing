@@ -1,6 +1,6 @@
-import { reactive, readonly } from 'vue';
-import axios from 'axios';
-import { Post, thisWeek, thisMonth, today } from './mocks';
+import { reactive, readonly } from "vue";
+import axios from "axios";
+import { Post, thisWeek, thisMonth, today } from "./mocks";
 
 interface State {
   posts: PostState;
@@ -26,7 +26,7 @@ class Store {
   }
 
   async fetchPosts() {
-    const response = await axios.get<Post[]>('/posts');
+    const response = await axios.get<Post[]>("/posts");
     const postState: PostState = {
       ids: [],
       all: new Map(),
@@ -41,13 +41,10 @@ class Store {
 }
 
 const all = new Map<string, Post>();
-all.set(today.id, today);
-all.set(thisWeek.id, thisWeek);
-all.set(thisMonth.id, thisMonth);
 
 const store = new Store({
   posts: {
-    ids: [today.id, thisWeek.id, thisMonth.id],
+    ids: [],
     all,
     loaded: false,
   },

@@ -1,37 +1,62 @@
-import { nextTick } from 'vue';
-import { mount } from '@vue/test-utils';
-import Timeline from '../../src/components/TimeLine.vue';
-import { today, thisWeek, thisMonth } from '../../src/mocks';
+import { nextTick } from "vue";
+import { flushPromises, mount } from "@vue/test-utils";
+import Timeline from "../../src/components/TimeLine.vue";
+import { today, thisWeek, thisMonth } from "../../src/mocks";
 
-describe('Timeline', () => {
-  it('renders a timeline', () => {
-    const wrapper = mount(Timeline);
-    console.log(wrapper.html());
-    expect(wrapper.html()).toContain(today.created.format('Do MMM'));
+jest.mock("axios", () => ({
+  get: (url: string) => {
+    return Promise.resolve({
+      data: [today, thisWeek, thisMonth],
+    });
+  },
+}));
+
+function mountTimeline() {
+  return mount({
+    components: {
+      Timeline,
+    },
+    template: `
+    <suspense>
+    <template #default>
+    <timeline />
+    </template>
+    <template #fallback>
+       Loading..
+    </template>
+    </suspense>`,
+  });
+}
+
+describe("Timeline", () => {
+  it("renders a timeline", async () => {
+    const wrapper = mountTimeline();
+    await flushPromises();
+    expect(wrapper.html()).toContain(today.created.format("Do MMM"));
   });
 
   //requestAnimationFrame(()=>...)
 
-  it('update when the period is click', async () => {
-    const wrapper = mount(Timeline);
-
-    await wrapper.get('[data-test="This Week"]').trigger('click');
-
-    // await nextTick();
+  it("update when the period is click", async () => {
+    const wrapper = mountTimeline();
+    await flushPromises();
+    await wrapper.get('[data-test="This Week"]').trigger("click");
+    await nextTick();
     //Wait for the next frame
-    expect(wrapper.html()).toContain(today.created.format('Do MMM'));
-    expect(wrapper.html()).toContain(thisWeek.created.format('Do MMM'));
+    expect(wrapper.html()).toContain(today.created.format("Do MMM"));
+    expect(wrapper.html()).toContain(thisWeek.created.format("Do MMM"));
   });
 
-  it('update when the period is click', async () => {
-    const wrapper = mount(Timeline);
+  it("update when the period is click", async () => {
+    const wrapper = mountTimeline();
+    await flushPromises();
 
-    await wrapper.get('[data-test="This Month"]').trigger('click');
+    await wrapper.get('[data-test="This Month"]').trigger("click");
 
     // await nextTick();
     //Wait for the next frame
-    expect(wrapper.html()).toContain(today.created.format('Do MMM'));
-    expect(wrapper.html()).toContain(thisWeek.created.format('Do MMM'));
-    expect(wrapper.html()).toContain(thisMonth.created.format('Do MMM'));
+    expect(wrapper.html()).toContain(today.created.format("Do MMM"));
+    expect(wrapper.html()).toContain(thisWeek.created.format("Do MMM"));
+    expect(wrapper.html()).toContain(thisMonth.created.format("Do MMM"));
   });
 });

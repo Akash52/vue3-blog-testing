@@ -26,49 +26,45 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
-import moment from 'moment';
-import { today, thisWeek, thisMonth, Post } from '../mocks';
-import TimelinePostVue from './TimelinePost.vue';
-import { useStore } from '../store';
+import { defineComponent, ref, computed } from "vue";
+import moment from "moment";
+import TimelinePostVue from "./TimelinePost.vue";
+import { useStore } from "../store";
+import { Post } from "../mocks";
 
-type Period = 'Today' | 'This Week' | 'This Month';
-
-function delay() {
-  return new Promise((res) => {
-    setTimeout(res, 2000);
-  });
-}
+type Period = "Today" | "This Week" | "This Month";
 
 export default defineComponent({
-  name: 'Timeline',
+  name: "Timeline",
   components: {
     TimelinePostVue,
   },
   async setup() {
-    await delay();
-    const periods = ['Today', 'This Week', 'This Month'];
-    const currentPeriod = ref<Period>('Today');
+    const periods = ["Today", "This Week", "This Month"];
+    const currentPeriod = ref<Period>("Today");
     const store = useStore();
+    if (!store.getState().posts.loaded) {
+      await store.fetchPosts();
+    }
     const allPosts: Post[] = store
       .getState()
       .posts.ids.reduce<Post[]>((acc, id) => {
         const thePost = store.getState().posts.all.get(id);
         if (!thePost) {
-          throw Error('This post was not found');
+          throw Error("This post was not found");
         }
         return acc.concat(thePost);
       }, []);
     const posts = computed(() => {
       return allPosts.filter((post) => {
-        if (currentPeriod.value === 'Today') {
-          return post.created.isAfter(moment().subtract(1, 'day'));
+        if (currentPeriod.value === "Today") {
+          return post.created.isAfter(moment().subtract(1, "day"));
         }
-        if (currentPeriod.value === 'This Week') {
-          return post.created.isAfter(moment().subtract(1, 'week'));
+        if (currentPeriod.value === "This Week") {
+          return post.created.isAfter(moment().subtract(1, "week"));
         }
-        if (currentPeriod.value === 'This Month') {
-          return post.created.isAfter(moment().subtract(1, 'month'));
+        if (currentPeriod.value === "This Month") {
+          return post.created.isAfter(moment().subtract(1, "month"));
         }
         return false;
       });
