@@ -1,14 +1,25 @@
 <template>
-  <div className="container max-w-6xl  mx-auto px-4 sm:px-6 lg:px-8">
-    <router-view />
-  </div>
+  <suspense>
+    <template #default>
+      <time-line />
+    </template>
+    <template #fallback>
+      <SpinnerVue />
+    </template>
+  </suspense>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import SpinnerVue from "./Spinner.vue";
+import TimeLine from "./TimeLine.vue";
 
 export default defineComponent({
-  name: "App",
+  name: "Home",
+  components: {
+    TimeLine,
+    SpinnerVue,
+  },
 });
 </script>
 
