@@ -11,23 +11,41 @@
         type="text"
         class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         id="exampleFormControlInput1"
-        placeholder="Example label"
+        placeholder="Content..."
+        v-model="title"
       />
+      <div contenteditable ref="contentEditable" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Post } from "@/mocks";
-import { defineComponent, PropType } from "vue";
+import { Post } from '@/mocks';
+import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
-  name: "PostWriter",
+  name: 'PostWriter',
   props: {
     post: {
       type: Object as () => Post,
       required: true,
     },
+  },
+  setup(props) {
+    const title = ref(props.post.title);
+    const content = ref('');
+    const contentEditable = ref(null);
+    console.log(contentEditable.value);
+
+    onMounted(() => {
+      console.log(contentEditable.value);
+    });
+
+    return {
+      title,
+      content,
+      contentEditable,
+    };
   },
 });
 </script>
