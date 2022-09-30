@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-2xl text-gray-800 flex justify-center mt-20 -mb-14 font-semibold"
+    class="text-2xl text-gray-800 flex justify-center mt-28 -mb-20 font-semibold"
   >
     Post Writer
   </div>
@@ -8,10 +8,10 @@
 </template>
 
 <script lang="ts">
-import PostWriter from "./PostWriter.vue";
-import { defineComponent } from "vue";
-import { Post } from "@/mocks";
-import moment from "moment";
+import PostWriter from './PostWriter.vue';
+import { defineComponent } from 'vue';
+import { Post } from '@/mocks';
+import moment from 'moment';
 
 export default defineComponent({
   components: {
@@ -19,8 +19,8 @@ export default defineComponent({
   },
   setup() {
     const newPost: Post = {
-      id: "-1",
-      title: "New post",
+      id: '-1',
+      title: 'New post',
       created: moment(),
     };
     return {

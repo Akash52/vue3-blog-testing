@@ -3,7 +3,7 @@
     <nav class="py-4 flex flex-col space-x-8 justify-center">
       <span class="py-4 flex space-x-8 justify-center">
         <a
-          class="border-indigo-500 text-indigo-600 font-normal"
+          class="border-gray-500 text-gray-700 font-normal"
           v-for="period in periods"
           :key="period"
           :class="{
