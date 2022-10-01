@@ -1,6 +1,6 @@
-import { reactive, readonly } from "vue";
-import axios from "axios";
-import { Post, thisWeek, thisMonth, today } from "./mocks";
+import { reactive, readonly } from 'vue';
+import axios from 'axios';
+import { Post, thisWeek, thisMonth, today } from './mocks';
 
 interface State {
   posts: PostState;
@@ -25,8 +25,13 @@ class Store {
     return readonly(this.state);
   }
 
+  async createPost(post: Post) {
+    const { data } = await axios.post<Post>('/posts', post);
+    this.state.posts.all.set(post.id, data);
+    this.state.posts.ids.push(post.id);
+  }
   async fetchPosts() {
-    const response = await axios.get<Post[]>("/posts");
+    const response = await axios.get<Post[]>('/posts');
     const postState: PostState = {
       ids: [],
       all: new Map(),

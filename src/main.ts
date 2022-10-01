@@ -5,6 +5,7 @@ import './index.css';
 import { today, thisWeek, thisMonth, Post } from './mocks';
 import { router } from './router';
 import 'highlight.js/styles/atom-one-dark.css';
+import random from 'lodash/random';
 
 function delay() {
   return new Promise((res) => {
@@ -17,6 +18,20 @@ axios.get = async (url: string) => {
     await delay();
     return Promise.resolve({
       data: [today, thisWeek, thisMonth],
+    });
+  }
+};
+
+// @ts-ignore
+axios.post = async (url: string, post: Post) => {
+  const id = random(100, 10000);
+  if (url === '/posts') {
+    await delay();
+    return Promise.resolve({
+      data: {
+        ...post,
+        id,
+      },
     });
   }
 };
