@@ -48,6 +48,13 @@
           <div v-html="html" />
         </div>
       </div>
+      <button
+        type="button"
+        @click="save"
+        class="text-white bg-yellow-700 w-32 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Submit Post
+      </button>
     </div>
   </div>
 </template>
@@ -67,7 +74,14 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+
+  emits: {
+    save: (post: Post) => {
+      return true;
+    },
+  },
+
+  setup(props, ctx) {
     const title = ref(props.post.title);
     const content = ref('## Title\nEnter your post content...');
     const contentEditable = ref<HTMLDivElement | null>(null);
@@ -117,7 +131,18 @@ export default defineComponent({
       contentEditable.value.innerText = content.value;
     });
 
+    const save = () => {
+      const newPost: Post = {
+        ...props.post,
+        title: title.value,
+        html: html.value,
+        markdown: content.value,
+      };
+      ctx.emit('save', newPost);
+    };
+
     return {
+      save,
       html,
       title,
       content,
