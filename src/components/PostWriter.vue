@@ -28,7 +28,7 @@
           Markdown Editor
         </label>
         <div
-          class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 h-48 bg-gray-200 outline-none focus:bg-white transition duration-300 text-base font-normal text-gray-800 font-serif cursor-pointer mx-2 overflow-scroll"
+          class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 h-48 bg-gray-200 outline-none focus:bg-white transition duration-300 text-base font-normal text-gray-800 font-serif cursor-pointer mx-2 overflow-y-auto"
           contenteditable
           ref="contentEditable"
           @input="handleInput"
@@ -40,10 +40,10 @@
           for="exampleFormControlInput1"
           class="form-label inline-block mb-2 font-semibold text-gray-600"
         >
-          Markdown Preview
+          HTML Preview
         </label>
         <div
-          className="rounded border-gray-300  dark:border-gray-700 border-dashed border-2 h-48 bg-gray-200"
+          className="rounded border-gray-300  dark:border-gray-700 border-dashed border-2 h-48 bg-gray-200 overflow-y-auto"
         >
           <div v-html="html" />
         </div>
