@@ -54,9 +54,10 @@
 
 <script lang="ts">
 import { Post } from '@/mocks';
-import { defineComponent, onMounted, ref, watchEffect } from 'vue';
+import { defineComponent, onMounted, ref, watchEffect, watch } from 'vue';
 import { parse } from 'marked';
 import highlight from 'highlight.js';
+import debounce from 'lodash/debounce';
 
 export default defineComponent({
   name: 'PostWriter',
@@ -72,15 +73,35 @@ export default defineComponent({
     const contentEditable = ref<HTMLDivElement | null>(null);
     const html = ref('');
 
-    watchEffect(() => {
-      html.value = parse(content.value, {
+    const parseHtml = (str: string) => {
+      html.value = parse(str, {
         gfm: true,
         breaks: true,
         highlight: (code: string) => {
           return highlight.highlightAuto(code).value;
         },
       });
-    });
+    };
+
+    // watchEffect(() => {
+    //   html.value = parse(content.value, {
+    //     gfm: true,
+    //     breaks: true,
+    //     highlight: (code: string) => {
+    //       return highlight.highlightAuto(code).value;
+    //     },
+    //   });
+    // });
+
+    watch(
+      content,
+      debounce((newVal) => {
+        parseHtml(newVal);
+      }, 250),
+      {
+        immediate: true,
+      }
+    );
 
     const handleInput = () => {
       if (!contentEditable.value) {
