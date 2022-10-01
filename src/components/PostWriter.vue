@@ -28,7 +28,7 @@
           Markdown Editor
         </label>
         <div
-          class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 h-24 bg-gray-200 outline-none focus:bg-white transition duration-300 text-base font-normal text-gray-800 font-serif cursor-pointer mx-2"
+          class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 h-48 bg-gray-200 outline-none focus:bg-white transition duration-300 text-base font-normal text-gray-800 font-serif cursor-pointer mx-2 overflow-scroll"
           contenteditable
           ref="contentEditable"
           @input="handleInput"
@@ -43,7 +43,7 @@
           Markdown Preview
         </label>
         <div
-          className="rounded border-gray-300  dark:border-gray-700 border-dashed border-2 h-24 bg-gray-200"
+          className="rounded border-gray-300  dark:border-gray-700 border-dashed border-2 h-48 bg-gray-200"
         >
           <div v-html="html" />
         </div>
@@ -56,6 +56,7 @@
 import { Post } from '@/mocks';
 import { defineComponent, onMounted, ref, watchEffect } from 'vue';
 import { parse } from 'marked';
+import highlight from 'highlight.js';
 
 export default defineComponent({
   name: 'PostWriter',
@@ -72,21 +73,27 @@ export default defineComponent({
     const html = ref('');
 
     watchEffect(() => {
-      html.value = parse(content.value);
+      html.value = parse(content.value, {
+        gfm: true,
+        breaks: true,
+        highlight: (code: string) => {
+          return highlight.highlightAuto(code).value;
+        },
+      });
     });
 
     const handleInput = () => {
       if (!contentEditable.value) {
         throw Error('This should never happen');
       }
-      content.value = contentEditable.value?.textContent || '';
+      content.value = contentEditable.value?.innerText || '';
     };
 
     onMounted(() => {
       if (!contentEditable.value) {
         throw Error('This should never happen');
       }
-      contentEditable.value.textContent = content.value;
+      contentEditable.value.innerText = content.value;
     });
 
     return {
