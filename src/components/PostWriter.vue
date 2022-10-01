@@ -45,7 +45,7 @@
         <div
           className="rounded border-gray-300  dark:border-gray-700 border-dashed border-2 h-24 bg-gray-200"
         >
-          {{ content }}
+          <div v-html="html" />
         </div>
       </div>
     </div>
@@ -54,7 +54,8 @@
 
 <script lang="ts">
 import { Post } from '@/mocks';
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, ref, watchEffect } from 'vue';
+import { parse } from 'marked';
 
 export default defineComponent({
   name: 'PostWriter',
@@ -68,6 +69,11 @@ export default defineComponent({
     const title = ref(props.post.title);
     const content = ref('## Title\nEnter your post content...');
     const contentEditable = ref<HTMLDivElement | null>(null);
+    const html = ref('');
+
+    watchEffect(() => {
+      html.value = parse(content.value);
+    });
 
     const handleInput = () => {
       if (!contentEditable.value) {
@@ -84,6 +90,7 @@ export default defineComponent({
     });
 
     return {
+      html,
       title,
       content,
       contentEditable,
