@@ -26,10 +26,13 @@
         </router-link>
       </div>
     </div>
+    <teleport to="#modal">
+      <div>Modal</div>
+    </teleport>
   </nav>
 </template>
 
-<script>
+<script lang="ts">
 export default {};
 </script>
 

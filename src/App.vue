@@ -1,4 +1,7 @@
 <template>
+  <div class="fixed inset-0 z-40 bg-black opacity-25">
+    <div id="modal">Hello Qorld</div>
+  </div>
   <div className="container max-w-6xl  mx-auto px-4 sm:px-6 lg:px-8">
     <Navbar />
     <router-view />
@@ -6,11 +9,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import Navbar from "./components/Navbar.vue";
+import { defineComponent } from 'vue';
+import Navbar from './components/Navbar.vue';
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: { Navbar },
 });
 </script>
