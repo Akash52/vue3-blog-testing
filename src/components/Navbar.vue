@@ -16,24 +16,42 @@
         </span>
       </router-link>
       <div class="flex md:order-2">
+        <button
+          type="button"
+          class="text-white bg-purple-600 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          @click="show"
+        >
+          Sign Up
+        </button>
         <router-link to="/posts/new">
           <button
             type="button"
-            class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            class="text-white ml-4 bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Add Post
           </button>
         </router-link>
       </div>
     </div>
-    <teleport to="#modal">
-      <div>Modal</div>
-    </teleport>
+    <teleport to="#modal"> </teleport>
   </nav>
 </template>
 
 <script lang="ts">
-export default {};
+import { useModal } from '@/useModal';
+import { computed, defineComponent } from 'vue';
+
+export default defineComponent({
+  setup() {
+    const modal = useModal();
+
+    return {
+      show: () => {
+        modal.showModal();
+      },
+    };
+  },
+});
 </script>
 
 <style></style>
