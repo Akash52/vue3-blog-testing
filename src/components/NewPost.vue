@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-2xl text-gray-800 flex justify-center mt-28 -mb-20 font-semibold"
+    class="flex justify-center mt-32 -mb-20 text-2xl font-semibold text-gray-800"
   >
     Post Writer
   </div>
