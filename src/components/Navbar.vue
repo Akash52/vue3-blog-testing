@@ -72,7 +72,7 @@
 
 <script lang="ts">
 import { useModal } from '@/useModal';
-import { computed, defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import SignUp from './SignUp.vue';
 
 export default defineComponent({

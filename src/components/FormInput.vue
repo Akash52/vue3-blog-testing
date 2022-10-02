@@ -5,6 +5,7 @@
     </label>
 
     <input
+      :id="name"
       :type="type"
       class="bg-gray-50 border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
       :value="modelValue"
@@ -23,7 +24,7 @@ defineProps<{
   name: string;
   modelValue: string;
   type: string;
-  error: string | undefined;
+  error: string;
 }>();
 const emit = defineEmits<{
   (event: 'update:modelValue', value: string): void;
