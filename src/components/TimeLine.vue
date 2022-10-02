@@ -1,5 +1,7 @@
 <template>
-  <div className="container">
+  <div
+    className="container mt-20 flex flex-col p-4 shadow-xl   backdrop-blur-xl blur-lg"
+  >
     <nav class="flex flex-col justify-center timeline-nav">
       <span class="flex justify-center py-4 space-x-8">
         <a
