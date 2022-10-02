@@ -1,6 +1,6 @@
 <template>
   <div className="container">
-    <nav class="flex flex-col justify-center">
+    <nav class="flex flex-col justify-center timeline-nav">
       <span class="flex justify-center py-4 space-x-8">
         <a
           class="font-normal text-gray-700 border-gray-500"
