@@ -1,9 +1,9 @@
 <template>
-  <div className="border-b border-gray-200">
-    <nav class="py-4 flex flex-col space-x-8 justify-center">
-      <span class="py-4 flex space-x-8 justify-center">
+  <div className="container">
+    <nav class="flex flex-col justify-center">
+      <span class="flex justify-center py-4 space-x-8">
         <a
-          class="border-gray-500 text-gray-700 font-normal"
+          class="font-normal text-gray-700 border-gray-500"
           v-for="period in periods"
           :key="period"
           :class="{
@@ -15,13 +15,8 @@
           {{ period }}
         </a>
       </span>
-      <timeline-post-vue
-        class="px-4 my-1 border py-4 bg-pink-100 hover:bg-white cursor-pointer transition duration-500 flex"
-        v-for="post in posts"
-        :key="post.id"
-        :post="post"
-      />
     </nav>
+    <timeline-post-vue v-for="post in posts" :key="post.id" :post="post" />
   </div>
 </template>
 

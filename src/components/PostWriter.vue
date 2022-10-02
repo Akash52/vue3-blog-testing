@@ -1,11 +1,11 @@
 <template>
   <div
-    class="bg-blue-100 backdrop-blur-md blur-lg px-4 py-4 container flex justify-center flex-col -mt-6 rounded-md shadow-md"
+    class="container flex flex-col justify-center px-4 py-2 -mt-6 bg-blue-100 rounded-md shadow-md backdrop-blur-md blur-lg"
   >
-    <div class="mb-3 bg-purple-100 px-4 py-4 rounded-md shadow-md mt-20">
+    <div class="px-4 py-2 mt-20 mb-3 bg-purple-100 rounded-md shadow-md">
       <label
         for="exampleFormControlInput1"
-        class="form-label inline-block mb-2 font-semibold text-gray-600"
+        class="inline-block mb-2 font-semibold text-gray-600 form-label"
       >
         New Post
       </label>
@@ -21,15 +21,15 @@
     <div
       className="container mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 pt-6 gap-8 -mt-3"
     >
-      <div class="shadow-md px-2 py-2 bg-purple-100 rounded-md">
+      <div class="px-2 py-2 bg-purple-100 rounded-md shadow-md">
         <label
           for="exampleFormControlInput1"
-          class="form-label inline-block mb-2 font-semibold text-gray-600"
+          class="inline-block mb-2 font-semibold text-gray-600 form-label"
         >
           Markdown Editor
         </label>
         <div
-          class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 h-48 bg-gray-200 outline-none focus:bg-white transition duration-300 text-base font-normal text-gray-800 font-serif cursor-pointer mx-2 overflow-y-auto"
+          class="h-48 mx-2 overflow-y-auto font-serif text-base font-normal text-gray-800 transition duration-300 bg-gray-200 border-2 border-gray-300 border-dashed rounded outline-none cursor-pointer dark:border-gray-700 focus:bg-white"
           contenteditable
           ref="contentEditable"
           @input="handleInput"
@@ -37,10 +37,10 @@
         />
       </div>
 
-      <div class="shadow-md px-2 py-2 bg-purple-100 rounded-md">
+      <div class="px-2 py-2 bg-purple-100 rounded-md shadow-md">
         <label
           for="exampleFormControlInput1"
-          class="form-label inline-block mb-2 font-semibold text-gray-600"
+          class="inline-block mb-2 font-semibold text-gray-600 form-label"
         >
           HTML Preview
         </label>

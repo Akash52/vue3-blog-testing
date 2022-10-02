@@ -1,6 +1,6 @@
 <template>
   <div id="modal" :style="style"></div>
-  <div className="container max-w-6xl  mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="container  mx-auto px-4 sm:px-6 lg:px-8">
     <Navbar />
     <router-view />
   </div>
