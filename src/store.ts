@@ -6,6 +6,12 @@ interface State {
   posts: PostState;
 }
 
+export interface User {
+  id: string;
+  username: string;
+  password: string;
+}
+
 interface PostState {
   //o(n)
   ids: string[];
@@ -30,6 +36,14 @@ class Store {
     this.state.posts.all.set(post.id, data);
     this.state.posts.ids.push(post.id);
   }
+
+  async createUser(user: User) {
+    console.log(user);
+    // const { data } = await axios.post<Post>('/users', user);
+    // this.state.posts.all.set(user.id, data);
+    // this.state.posts.ids.push(user.id);
+  }
+
   async fetchPosts() {
     const response = await axios.get<Post[]>('/posts');
     const postState: PostState = {

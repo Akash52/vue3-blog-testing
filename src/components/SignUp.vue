@@ -12,6 +12,12 @@
       type="password"
       :error="passwordStatus.message"
     />
+    <button
+      class="flex justify-center px-3 py-3 mx-auto text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-green-500 rounded shadow outline-none active:bg-green-600 hover:shadow-lg focus:outline-none"
+      :class="{ disabled: !usernameSatus.valid || !passwordStatus.valid }"
+    >
+      Button
+    </button>
   </form>
 </template>
 
@@ -19,6 +25,8 @@
 import { computed, defineComponent, ref } from 'vue';
 import FormInput from './FormInput.vue';
 import { required, length, Status, validate } from '../validation';
+import { User, useStore } from '../store';
+import { useModal } from '@/useModal';
 
 export default defineComponent({
   name: 'App',
@@ -42,8 +50,20 @@ export default defineComponent({
       ]);
     });
 
-    const submit = (evt: Event) => {
-      //..
+    const store = useStore();
+    const modal = useModal();
+
+    const submit = async (evt: Event) => {
+      if (!usernameSatus.value.valid || !passwordStatus.value.valid) {
+        return;
+      }
+      const newUser: User = {
+        id: '-1',
+        username: username.value,
+        password: password.value,
+      };
+      await store.createUser(newUser);
+      modal.hideModal();
     };
 
     return {

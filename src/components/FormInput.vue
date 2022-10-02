@@ -16,23 +16,6 @@
       {{ error }}
     </span>
   </div>
-
-  <!-- <div
-            class="flex items-center justify-center p-2 border-t border-solid rounded-b border-blueGray-200"
-          >
-            <button
-              class="w-full px-6 py-3 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear rounded shadow outline-none bg-emerald-500 active:bg-emerald-600 hover:shadow-lg focus:outline-none"
-              type="submit"
-            >
-              {{ modalButton }}
-            </button>
-            <button
-              class="w-full px-6 py-3 ml-2 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-red-500 rounded shadow outline-none active:bg-red-600 hover:shadow-lg focus:outline-none"
-              @click="closeModal()"
-            >
-              close
-            </button>
-          </div> -->
 </template>
 
 <script lang="ts" setup>
