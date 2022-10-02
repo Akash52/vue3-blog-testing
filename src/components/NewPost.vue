@@ -13,7 +13,7 @@ import { defineComponent } from 'vue';
 import { Post } from '@/mocks';
 import moment from 'moment';
 import { useStore } from '@/store';
-import { router } from '@/router';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   components: {
@@ -27,10 +27,14 @@ export default defineComponent({
     };
 
     const store = useStore();
+    const router = useRouter();
 
     const save = async (post: Post) => {
+      console.log('1');
       await store.createPost(post);
+      console.log('2');
       router.push('/');
+      console.log('3');
     };
 
     return {

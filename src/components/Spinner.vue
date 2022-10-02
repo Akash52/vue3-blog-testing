@@ -1,8 +1,8 @@
 <template>
-  <div class="loader mt-2 mx-auto"></div>
+  <div class="mx-auto mt-2 loader"></div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'Spinner',
 };
