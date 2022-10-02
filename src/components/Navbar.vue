@@ -91,7 +91,7 @@
 
 <script lang="ts">
 import { useModal } from '@/useModal';
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, markRaw } from 'vue';
 import SignUp from './SignUp.vue';
 import { useStore } from '@/store';
 
@@ -106,7 +106,7 @@ export default defineComponent({
 
     const signIn = () => {};
     const signUp = () => {
-      modal.component.value = SignUp;
+      modal.component.value = markRaw(SignUp);
       modal.showModal();
     };
     const signOut = () => {};
