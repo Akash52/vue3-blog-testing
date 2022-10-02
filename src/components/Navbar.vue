@@ -38,8 +38,24 @@
         class="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none backdrop-blur-sm"
       >
         <div
-          class="relative w-full max-w-md p-2 mx-auto rounded-md shadow-lg backdrop-blur-xl border-1 shadow-slate-800"
+          class="relative w-full max-w-md mx-auto rounded-md shadow-lg backdrop-blur-xl border-1 shadow-slate-800"
         >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="absolute top-0 right-0 z-50 block w-6 h-6 text-xl font-semibold text-white bg-green-500 rounded-full cursor-pointer hover:opacity-85"
+            @click="hide"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+
           <div
             class="relative flex flex-col w-full py-3 bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none opacity-95"
           >
@@ -47,7 +63,9 @@
           </div>
         </div>
       </div>
-      <div class="fixed inset-0 z-40 bg-black opacity-25"></div>
+      <div
+        class="fixed inset-0 z-40 bg-black opacity-25 backdrop-blur-lg"
+      ></div>
     </teleport>
   </nav>
 </template>
@@ -63,6 +81,9 @@ export default defineComponent({
     return {
       show: () => {
         modal.showModal();
+      },
+      hide: () => {
+        modal.hideModal();
       },
     };
   },
