@@ -16,21 +16,40 @@
         </span>
       </router-link>
       <div class="flex md:order-2">
-        <button
-          type="button"
-          class="text-white bg-purple-600 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap"
-          @click="show"
-        >
-          Sign Up
-        </button>
-        <router-link to="/posts/new">
+        <div v-if="auth">
+          <router-link to="/posts/new">
+            <button
+              type="button"
+              class="text-white ml-2 bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Add Post
+            </button>
+          </router-link>
+          <button
+            type="button"
+            class="text-white bg-purple-600 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap"
+            @click="signOut"
+          >
+            Sign Out
+          </button>
+        </div>
+        <div v-else>
+          <button
+            type="button"
+            class="text-white bg-purple-600 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap"
+            @click="signUp"
+          >
+            Sign Up
+          </button>
+
           <button
             type="button"
             class="text-white ml-2 bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            @click="signIn"
           >
-            Add Post
+            Sign In
           </button>
-        </router-link>
+        </div>
       </div>
     </div>
     <teleport to="#modal">
@@ -59,7 +78,7 @@
           <div
             class="relative flex flex-col w-full py-3 bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none opacity-95"
           >
-            <sign-up />
+            <component :is="component" />
           </div>
         </div>
       </div>
@@ -72,16 +91,32 @@
 
 <script lang="ts">
 import { useModal } from '@/useModal';
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import SignUp from './SignUp.vue';
+import { useStore } from '@/store';
 
 export default defineComponent({
   setup() {
     const modal = useModal();
+    const store = useStore();
+
+    const auth = computed(() => {
+      return !!store.getState().authors.currentUserId;
+    });
+
+    const signIn = () => {};
+    const signUp = () => {
+      modal.component.value = SignUp;
+      modal.showModal();
+    };
+    const signOut = () => {};
+
     return {
-      show: () => {
-        modal.showModal();
-      },
+      component: modal.component,
+      signIn,
+      signUp,
+      signOut,
+      auth,
       hide: () => {
         modal.hideModal();
       },

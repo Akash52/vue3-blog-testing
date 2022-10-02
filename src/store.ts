@@ -2,25 +2,32 @@ import { App, inject, reactive, readonly } from 'vue';
 import axios from 'axios';
 import { Post, thisWeek, thisMonth, today } from './mocks';
 
-interface State {
-  posts: PostState;
-}
-
 export interface User {
   id: string;
   username: string;
   password: string;
 }
 
-export const storeKey = Symbol('store');
+export type Author = Omit<User, 'password'>;
 
-interface PostState {
+interface BaseState<T> {
   //o(n)
   ids: string[];
   //o(1)
-  all: Map<string, Post>;
+  all: Map<string, T>;
   loaded: boolean;
 }
+
+type PostsState = BaseState<Post>;
+interface AuthorsState extends BaseState<Author> {
+  currentUserId: string | undefined;
+}
+interface State {
+  authors: AuthorsState;
+  posts: PostsState;
+}
+
+export const storeKey = Symbol('store');
 
 export class Store {
   private state: State;
@@ -45,14 +52,16 @@ export class Store {
 
   async createUser(user: User) {
     console.log(user);
-    // const { data } = await axios.post<Post>('/users', user);
-    // this.state.posts.all.set(user.id, data);
-    // this.state.posts.ids.push(user.id);
+    const { data } = await axios.post<Author>('/users', user);
+    this.state.authors.all.set(data.id, data);
+    this.state.authors.ids.push(data.id);
+    this.state.authors.currentUserId = data.id;
+    console.log(this.state.authors);
   }
 
   async fetchPosts() {
     const response = await axios.get<Post[]>('/posts');
-    const postState: PostState = {
+    const postState: PostsState = {
       ids: [],
       all: new Map(),
       loaded: true,
@@ -68,6 +77,12 @@ export class Store {
 const all = new Map<string, Post>();
 
 export const store = new Store({
+  authors: {
+    ids: [],
+    all: new Map<string, Author>(),
+    loaded: false,
+    currentUserId: undefined,
+  },
   posts: {
     ids: [],
     all,
