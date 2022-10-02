@@ -1,31 +1,6 @@
 <template>
-  <div id="modal" :style="style">
-    <button @click="hide">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M6 18L18 6M6 6l12 12"
-        />
-      </svg>
-    </button>
-  </div>
+  <div id="modal" :style="style"></div>
   <div className="container max-w-6xl  mx-auto px-4 sm:px-6 lg:px-8">
-    <FormInput
-      v-model="username"
-      name="Username"
-      type="text"
-      error="There is an error"
-    />
-
-    {{ username }}
     <Navbar />
     <router-view />
   </div>
@@ -34,23 +9,20 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import Navbar from './components/Navbar.vue';
-
 import { useModal } from './useModal';
-import FormInput from './components/FormInput.vue';
 
 export default defineComponent({
   name: 'App',
-  components: { Navbar, FormInput },
+  components: { Navbar },
   setup() {
     const modal = useModal();
-    const username = ref('username');
+
     const style = computed(() => {
       return {
         display: modal.show.value ? 'block' : 'none',
       };
     });
     return {
-      username,
       style,
       hide: () => {
         modal.hideModal();

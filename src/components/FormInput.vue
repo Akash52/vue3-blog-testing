@@ -1,37 +1,23 @@
 <template>
-  <form>
-    <div
-      class="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none backdrop-blur-sm"
-    >
-      <div
-        class="relative w-full max-w-md p-5 mx-auto my-6 rounded-md shadow-lg backdrop-blur-xl border-1 shadow-slate-800"
-      >
-        <div
-          class="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none opacity-95"
-        >
-          <div class="relative flex-auto p-6">
-            <div>
-              <label
-                class="block mb-2 text-lg font-medium text-gray-900"
-                :name="name"
-              >
-                {{ name }}
-              </label>
+  <div class="relative flex-auto p-3">
+    <label class="block text-lg font-medium text-gray-900" :name="name">
+      {{ name }}
+    </label>
 
-              <input
-                :type="type"
-                class="bg-gray-50 border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-2"
-                v-model="modelValue"
-                @input="handleInput"
-              />
-              <span
-                class="text-xs italic text-red-500 transition duration-300 ease-in-out"
-              >
-                {{ error }}
-              </span>
-            </div>
-          </div>
-          <!-- <div
+    <input
+      :type="type"
+      class="bg-gray-50 border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+      v-model="modelValue"
+      @input="handleInput"
+    />
+    <span
+      class="text-xs italic text-red-500 transition duration-300 ease-in-out"
+    >
+      {{ error }}
+    </span>
+  </div>
+
+  <!-- <div
             class="flex items-center justify-center p-2 border-t border-solid rounded-b border-blueGray-200"
           >
             <button
@@ -47,11 +33,6 @@
               close
             </button>
           </div> -->
-        </div>
-      </div>
-    </div>
-    <div class="fixed inset-0 z-40 bg-black opacity-25"></div>
-  </form>
 </template>
 
 <script lang="ts" setup>
@@ -59,7 +40,7 @@ defineProps<{
   name: string;
   modelValue: string;
   type: string;
-  error: string;
+  error: string | undefined;
 }>();
 const emit = defineEmits<{
   (event: 'update:modelValue', value: string): void;

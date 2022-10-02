@@ -29,7 +29,7 @@ export function length(options: lengthOptions): Length {
   };
 }
 
-interface Status {
+export interface Status {
   valid: boolean;
   message?: string;
 }
