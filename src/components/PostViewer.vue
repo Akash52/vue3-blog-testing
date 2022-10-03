@@ -1,4 +1,10 @@
 <template>
+  <router-link
+    :to="`/posts/${post.id}/edit`"
+    class="text-white ml-2 px-4 py-1 w-16 mt-24 block rounded-md bg-gradient-to-r from-green-500 to-blue-500 whitespace-nowrap"
+  >
+    Edit
+  </router-link>
   <h1>
     {{ post?.title }}
   </h1>
