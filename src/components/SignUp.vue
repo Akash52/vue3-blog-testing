@@ -16,7 +16,7 @@
       class="flex justify-center px-3 py-3 mx-auto text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-green-500 rounded shadow outline-none active:bg-green-600 hover:shadow-lg focus:outline-none"
       :class="{ disabled: !usernameSatus.valid || !passwordStatus.valid }"
     >
-      Button
+      Sign UP
     </button>
   </form>
 </template>
