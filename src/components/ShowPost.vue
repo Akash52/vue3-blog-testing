@@ -1,16 +1,22 @@
-<template>Show Post</template>
+<template>
+  <suspense>
+    <template #default> <post-viewer /> </template>
+    <template #fallback>
+      <SpinnerVue />
+    </template>
+  </suspense>
+</template>
 
 <script lang="ts">
-import { useStore } from "@/store";
 import { defineComponent } from "vue";
-import { useRoute } from "vue-router";
+
+import PostViewer from "./PostViewer.vue";
+import Spinner from "./Spinner.vue";
 
 export default defineComponent({
-  setup(props) {
-    const store = useStore();
-    const id = useRoute().params.id as string;
-    const post = store.getState().posts.all.get(id);
-    console.log(post);
+  components: {
+    PostViewer,
+    Spinner,
   },
 });
 </script>
