@@ -1,6 +1,6 @@
-import { App, inject, reactive, readonly } from 'vue';
-import axios from 'axios';
-import { Post, thisWeek, thisMonth, today } from './mocks';
+import { App, inject, reactive, readonly } from "vue";
+import axios from "axios";
+import { Post, thisWeek, thisMonth, today } from "./mocks";
 
 export interface User {
   id: string;
@@ -8,7 +8,7 @@ export interface User {
   password: string;
 }
 
-export type Author = Omit<User, 'password'>;
+export type Author = Omit<User, "password">;
 
 interface BaseState<T> {
   //o(n)
@@ -27,7 +27,7 @@ interface State {
   posts: PostsState;
 }
 
-export const storeKey = Symbol('store');
+export const storeKey = Symbol("store");
 
 export class Store {
   private state: State;
@@ -45,14 +45,15 @@ export class Store {
   }
 
   async createPost(post: Post) {
-    const { data } = await axios.post<Post>('/posts', post);
-    this.state.posts.all.set(post.id, data);
-    this.state.posts.ids.push(post.id);
+    const { data } = await axios.post<Post>("/posts", post);
+    this.state.posts.all.set(data.id, data);
+    this.state.posts.ids.push(data.id);
+    console.log(this.state.posts.ids);
   }
 
   async createUser(user: User) {
     console.log(user);
-    const { data } = await axios.post<Author>('/users', user);
+    const { data } = await axios.post<Author>("/users", user);
     this.state.authors.all.set(data.id, data);
     this.state.authors.ids.push(data.id);
     this.state.authors.currentUserId = data.id;
@@ -60,7 +61,7 @@ export class Store {
   }
 
   async fetchPosts() {
-    const response = await axios.get<Post[]>('/posts');
+    const response = await axios.get<Post[]>("/posts");
     const postState: PostsState = {
       ids: [],
       all: new Map(),
@@ -97,7 +98,7 @@ export const store = new Store({
 export function useStore(): Store {
   const _store = inject<Store>(storeKey);
   if (!_store) {
-    throw Error('Did you forget to call provide ?');
+    throw Error("Did you forget to call provide ?");
   }
   return _store;
 }
