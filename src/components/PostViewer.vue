@@ -3,6 +3,7 @@
     v-if="canEdit"
     :to="`/posts/${post.id}/edit`"
     class="block w-16 px-4 py-1 mt-24 ml-2 text-white rounded-md bg-gradient-to-r from-green-500 to-blue-500 whitespace-nowrap"
+    data-test="can-edit"
   >
     Edit
   </router-link>
@@ -12,9 +13,9 @@
 </template>
 
 <script lang="ts">
-import { useStore } from '@/store';
-import { defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
+import { useStore } from "@/store";
+import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   async setup(props) {
@@ -28,7 +29,7 @@ export default defineComponent({
     const post = store.getState().posts.all.get(id);
 
     if (!post) {
-      throw Error('Post was not Found');
+      throw Error("Post was not Found");
     }
 
     const canEdit = post.authorId === store.getState().authors.currentUserId;

@@ -38,6 +38,7 @@
             type="button"
             class="text-white ml-2 px-2 py-1 rounded-md bg-gradient-to-r from-green-500 to-blue-500 whitespace-nowrap"
             @click="signUp"
+            data-test="sign-up"
           >
             Sign Up
           </button>
