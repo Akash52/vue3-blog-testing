@@ -22,7 +22,7 @@ type PostsState = BaseState<Post>;
 interface AuthorsState extends BaseState<Author> {
   currentUserId: string | undefined;
 }
-interface State {
+export interface State {
   authors: AuthorsState;
   posts: PostsState;
 }
@@ -66,6 +66,7 @@ export class Store {
   }
 
   async fetchPosts() {
+    console.log("fetch....");
     const response = await axios.get<Post[]>("/posts");
     const postState: PostsState = {
       ids: [],
